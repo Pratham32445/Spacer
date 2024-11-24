@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div className="w-full h-full mt-[60px] flex justify-center items-center">
+    <div className="w-full min-h-screen flex justify-center items-center">
       <div className="relative z-20 flex h-[600px] w-full overflow-hidden rounded-lg bg-background p-20">
         <div className="w-full flex justify-center items-center">
           <motion.div

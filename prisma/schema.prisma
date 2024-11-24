@@ -14,8 +14,35 @@ datasource db {
 }
 
 model User {
-  Id       String  @id @default(uuid())
-  email    String
-  password String?
-  isVerified Boolean @default(false)
+  Id        String   @id @default(uuid())
+  email     String
+  password  String
+  createdAt DateTime @default(now())
+  spaces    Space[]
+}
+
+model Space {
+  Id              String   @id @default(uuid())
+  title           String
+  desc            String
+  CoverImage      String
+  SubscriberCount String
+  createdAt       DateTime @default(now())
+  userId          String
+  user            User     @relation(fields: [userId], references: [Id])
+  members         member[]
+}
+
+model member {
+  Id      String @id @default(uuid())
+  userId  String
+  spaceId String
+  space   Space  @relation(fields: [spaceId], references: [Id])
+  role UserRole @default(LISTENER)
+}
+
+enum UserRole {
+  ADMIN
+  MODERATOR
+  LISTENER
 }

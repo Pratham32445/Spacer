@@ -12,7 +12,7 @@ const Login = () => {
     switch (type) {
       case "google":
         signIn("google", {
-          callbackUrl: "/create",
+          callbackUrl: "/explore",
         });
         break;
       default:

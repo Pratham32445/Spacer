@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import axios, { AxiosError } from "axios";
-import { UserError } from "../types";
+import { UserError } from "../../types";
 import { useToast } from "@/hooks/use-toast";
 import type { ConfettiRef } from "@/components/ui/confetti";
 import Confetti from "@/components/ui/confetti";
@@ -16,7 +16,7 @@ const AuthLogin = (type: string) => {
   switch (type) {
     case "google":
       signIn("google", {
-        callbackUrl: "/create",
+        callbackUrl: "/explore",
       });
       break;
     default:
@@ -36,6 +36,7 @@ const Signup = () => {
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      setErrors({ email: "", password: "" });
       setIsLoading(true);
       const res = await axios.post("/api/auth/signup", { email, password });
       setIsLoading(false);
@@ -53,7 +54,7 @@ const Signup = () => {
           setShowConfetti(true);
           confettiRef.current?.fire({});
           setTimeout(() => {
-            navigate.push("/create");
+            navigate.push("/explore");
           }, 2000);
           return;
         }
