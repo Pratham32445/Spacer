@@ -8,7 +8,7 @@ import { ChevronRight } from "lucide-react";
 
 const Hero = () => {
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full mt-[60px] flex justify-center items-center">
       <div className="relative z-20 flex h-[600px] w-full overflow-hidden rounded-lg bg-background p-20">
         <div className="w-full flex justify-center items-center">
           <motion.div
@@ -28,7 +28,7 @@ const Hero = () => {
               Build communities, manage shared music queues
             </p>
             <div className="flex justify-center items-center my-5 gap-4">
-              <Button className="font-bold p-5 rounded">
+              <Button  className="font-bold p-5 rounded">
                 Start Exploring <ChevronRight />
               </Button>
               <Button variant={"outline"} className="font-bold p-5 rounded">
