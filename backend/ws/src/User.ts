@@ -16,17 +16,18 @@ export class User {
   initHandler() {
     this.ws.on("message", async (data) => {
       const parsedData = JSON.parse(data.toString());
-      let roomId, room;
+      let roomId, room, userId, token;
       switch (parsedData.type) {
         case "JOIN_ROOM":
           roomId = parsedData.payload.roomId;
-          const token = parsedData.payload.token;
-          const userId = (jwt.verify(token, JWT_PASSWORD) as JwtPayload).Id;
+          token = parsedData.payload.token;
+          userId = (jwt.verify(token, JWT_PASSWORD) as JwtPayload).Id;
           this.Id = userId;
           if (!userId) return;
           room = await RoomManager.getInstance().getRoom(roomId);
           if (!room) return;
           room.addUser(this.Id, this);
+          RoomManager.getInstance().setRoom(roomId, room);
           break;
         case "ADD_SONG":
           roomId = parsedData.payload.roomId;
@@ -36,6 +37,14 @@ export class User {
             parsedData.payload.adminId
           );
           console.log(RoomManager.getInstance().rooms);
+          break;
+        case "ADD_MESSAGE":
+          roomId = parsedData.payload.roomId;
+          token = parsedData.payload.token;
+          room = await RoomManager.getInstance().getRoom(roomId);
+          userId = (jwt.verify(token, JWT_PASSWORD) as JwtPayload).Id;
+          room?.addMessage(parsedData.payload.message, userId);
+          break;
         default:
           break;
       }

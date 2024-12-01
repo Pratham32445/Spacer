@@ -29,4 +29,7 @@ export class RoomManager {
     }
     return this.rooms.get(roomId);
   }
+  async setRoom(roomId: string, room: Room) {
+    this.rooms.set(roomId, room);
+  }
 }

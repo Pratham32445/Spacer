@@ -7,6 +7,7 @@ export const createRoom = async (req: Request, res: Response) => {
     // @ts-ignore
     req.body.adminId = req.user.Id;
     const results = Room.safeParse(req.body);
+    console.log(req.body);
     if (!results.success) {
       return res.status(401).send({
         Errors: results.error,

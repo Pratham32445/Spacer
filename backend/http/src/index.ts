@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.routes";
 import cookiePraser from "cookie-parser";

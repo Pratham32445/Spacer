@@ -36,6 +36,7 @@ class Room {
         this.users.delete(userId);
     }
     addMessage(message, userId) {
+        console.log(this.users);
         const user = this.users.get(userId);
         const Message = {
             message,

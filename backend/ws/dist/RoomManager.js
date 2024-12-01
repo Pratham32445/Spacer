@@ -37,5 +37,10 @@ class RoomManager {
             return this.rooms.get(roomId);
         });
     }
+    setRoom(roomId, room) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.rooms.set(roomId, room);
+        });
+    }
 }
 exports.RoomManager = RoomManager;

@@ -12,26 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createRoom = void 0;
-const types_1 = require("../types");
-const indext_1 = __importDefault(require("../client/indext"));
-const createRoom = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.uploadToCloudinary = void 0;
+const cloudinary_1 = require("cloudinary");
+const fs_1 = __importDefault(require("fs"));
+cloudinary_1.v2.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+const uploadToCloudinary = (filePath, folder) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // @ts-ignore
-        req.body.adminId = req.user.Id;
-        const results = types_1.Room.safeParse(req.body);
-        console.log(req.body);
-        if (!results.success) {
-            return res.status(401).send({
-                Errors: results.error,
-                type: "showErrors",
-            });
-        }
-        const space = yield indext_1.default.space.create({ data: req.body });
-        return res.status(201).json({ message: "space Created", type: "toast" });
+        const result = cloudinary_1.v2.uploader.upload(filePath, {
+            folder,
+        });
+        fs_1.default.unlinkSync(filePath);
+        return result;
     }
     catch (error) {
-        console.log(error);
+        return false;
     }
 });
-exports.createRoom = createRoom;
+exports.uploadToCloudinary = uploadToCloudinary;

@@ -1,20 +1,20 @@
-import { RecoilRoot } from "recoil";
-import User from "./components/dashboard/User";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Space from "./pages/Space";
+import SpaceDashboard from "./pages/SpaceDashboard";
 
 const router = createBrowserRouter([
   {
-    path: "/space/:id",
-    element: <User />,
+    path : "/space/:id",
+    element : <SpaceDashboard/>
+  },
+  {
+    path: "/space/create",
+    element: <Space />,
   },
 ]);
 
 const App = () => {
-  return (
-    <RecoilRoot>
-      <RouterProvider router={router} />
-    </RecoilRoot>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

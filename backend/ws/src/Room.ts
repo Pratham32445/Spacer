@@ -59,6 +59,7 @@ export class Room {
   }
 
   addMessage(message: string, userId: string) {
+    console.log(this.users);
     const user = this.users.get(userId);
     const Message: Message = {
       message,
